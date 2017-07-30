@@ -35,10 +35,23 @@ Status insert(LinkList &list,int i,ElemType x){
 	return OK;
 }
 //
-Status Delete(LinkList list,int i){
-
-
-
+Status Delete(LinkList &list,int i){
+	LinkList tmp=NULL,pre;
+	int k=2;
+if(!list)
+	return INFEASIBLE;
+	if(i==1){
+		tmp=list;
+		list=list->next;
+		free(tmp);
+	}else{
+		pre=list;
+		while(k<i&&pre->next){pre=pre->next;k++;}
+         if(!pre->next) return INFEASIBLE;
+         tmp=pre->next;
+         pre->next=pre->next->next;
+         free(tmp);
+	}
 }
 
 void print(LinkList list){
@@ -85,21 +98,17 @@ Status DeleteAndInsertSub(LinkList &la,LinkList &lb,int i,int j,int len)
 int main(){
 srand(time(NULL));
 LinkList la=NULL;
-LinkList lb=NULL;
 	for(int i=0;i<rand()%20;i++)
 	insert(la,1,rand()%100);
-	for(int i=0;i<rand()%20;i++)
-	insert(lb,1,rand()%100);
 print(la);
 printf("\n");
-print(lb);
-int i,j,len;
-printf("please  enter i j len \n");
-scanf("%d%d%d",&i,&j,&len);
-DeleteAndInsertSub(la,lb,i,j,len);
-printf("after DeleteAndInsertSub(la,lb,%d,%d,%d)\n",i,j,len);
+int i;
+while(true){
+printf("please  enter i  \n");
+scanf("%d",&i);
+Delete(la,i);
+printf("after Delete(la,%d)\n",i);
 print(la);
-printf("\n");
-print(lb);
+}
    	return 0;
 }
