@@ -52,36 +52,28 @@ void print(LinkList list){
   }
 
 }
-Status DeleteAndInsertSub(LinkList la,LinkList lb,int i,int j,int len)
-{   int k=1;
-	LinkList ha=(LinkList)malloc(sizeof(LNode));
-	LinkList hb=(LinkList)malloc(sizeof(LNode));
-	ha->next=la;
-	hb->next=lb;
-	LinkList pre=ha;LinkList p=ha->next;
-	while(k<i&&p){pre=p;p=p->next;k++;}
-	if(!p){free(ha);free(hb);return INFEASIBLE;}
-	LinkList q=p;k=1;
-	while(k<len&&q){q=q->next;k++;}
-	if(!q){free(ha);free(hb);return INFEASIBLE;}
-	pre->next=q->next;
-     LinkList sre=hb;LinkList s=hb->next;k=1;
-     while(k<len&&sre){sre=s;if(s)s=s->next;k++;}
-     if(!sre)return INFEASIBLE;
-     sre->next=p;q->next=s;
-     free(ha);free(hb);
-}
-
-
-
 
 
 int main(){
 
-LinkList la=NULL;
-LinkList lb=NULL;
-
-
-
+LinkList list=NULL;
+//if(list==NULL)
+//printf("%d\n",list);
+Status stat;
+stat =insert(list,1,3);
+printf("%d\n",stat);
+print(list);
+stat =insert(list,1,8);
+printf("%d\n",stat);
+print(list);
+stat =insert(list,3,5);
+printf("%d\n",stat);
+print(list);
+stat =insert(list,5,5);
+printf("%d\n",stat);
+print(list);
+stat =insert(list,4,9);
+printf("%d\n",stat);
+print(list);
 	return 0;
 }
