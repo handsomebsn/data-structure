@@ -27,7 +27,7 @@ Sqlist createsqlist(int listsize){
   va.length=0;
   return va;
 }
-//
+//创建链表
 LinkList createLinklist(){
   LinkList head=(LinkList)malloc(sizeof(LNode));
   head->next=NULL;
@@ -57,14 +57,14 @@ void InsertEnd(Sqlist &va,ElemType x){
 	va.elem[va.length]=x;
         va.length++;
 }
-//
+//头插法插入x
 void InsertHead(LinkList list,ElemType x){
   LinkList newptrnode=(LinkList)malloc(sizeof(LNode));
   newptrnode->data=x;
   newptrnode->next=list->next;
   list->next=newptrnode;
 }
-//
+//确定某个x的位置，找不到返回0，找到返回第几个
 int locate(LinkList list,ElemType x){
   int pos=1;
   list=list->next;
@@ -77,7 +77,7 @@ int locate(LinkList list,ElemType x){
   else
     return 0;
 }
-//
+//求带头结点的链表的长度
 int length(LinkList list){
  int i=0;
  list=list->next;
