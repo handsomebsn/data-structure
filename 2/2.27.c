@@ -99,6 +99,6 @@ print(b);
 ListCross_Sq(a,b,c);
 printf("after ListCross_Sq(a,b,c)\n");
 
- print(a);
+ print(c);
     return 0;
 }
