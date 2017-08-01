@@ -43,7 +43,7 @@ void print(const Sqlist &a){
  printf("\n");
 }
 // 将A、B求交后的结果放在C表中,1利用A的空间、2不存在相同的元素
-Status ListCross_Sq(Sqlist &A,const Sqlist &B,Sqlist &C){
+Status ListCross_Sq1(Sqlist &A,const Sqlist &B,Sqlist &C){
 	int i=0,j=0;int m=0;
   int alength=A.length;
   A.length=0;
@@ -55,7 +55,29 @@ Status ListCross_Sq(Sqlist &A,const Sqlist &B,Sqlist &C){
  	else
  		i++;
  }
+free(C.elem);
+C=A;
 
+}
+
+// 将A、B求交后的结果放在C表中,1利用A的空间、2不存在相同的元素
+Status ListCross_Sq(Sqlist &A,const Sqlist &B,Sqlist &C){
+	int i=0,j=0;//int k=0;
+  int alength=A.length;
+  A.length=0;
+ while(i<alength&&j<B.length){
+ 	if(A.elem[i]==B.elem[j])
+ 		{ 
+ 			if(A.length==0||A.elem[A.length-1]!=A.elem[i])
+ 			 { A.elem[A.length]=A.elem[i];A.length++;} 
+				i++;j++;
+        }
+ 	else if(A.elem[i]>B.elem[j])
+ 		j++;
+ 	else
+ 		i++;
+ }
+free(C.elem);
 C=A;
 
 }
@@ -65,7 +87,7 @@ int main(){
 	srand(time(NULL));
 Sqlist a=createsqlist(100);
 Sqlist b=createsqlist(100);
-Sqlist c;
+Sqlist c=createsqlist(100);
 for(int i=0;i<20;i++){
 	InsertUp(a,rand()%20);
 }

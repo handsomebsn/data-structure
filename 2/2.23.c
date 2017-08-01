@@ -42,18 +42,23 @@ void print(LinkList list){
 }
 
 Status ListMerge(LinkList A,LinkList B,LinkList C){
-   LinkList p=A->next,q=B->next,tmpanext,tmpbnext;
-   C->next=A->next;
+   LinkList p=A->next,q=B->next,tmpanext,tmpbnext,qre;
+   //C->next=A->next;
    while(p&&q){
     tmpanext=p->next;
+    qre=q;
     tmpbnext=q->next;
-    if(p->next)
+    //if(p->next)
     q->next=p->next;
     p->next=q;
       p=tmpanext;
       q=tmpbnext;
    }
+   if(q)
+   	qre->next=q;
+
     B->next=NULL;
+    C->next=A->next;
     A->next=NULL;
     return OK;
 }

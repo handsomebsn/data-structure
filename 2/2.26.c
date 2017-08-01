@@ -51,8 +51,8 @@ void InsertEnd(LinkList list,ElemType x){
 
 
 
-
-Status ListCross(LinkList A,LinkList B,LinkList C){
+//A，B递增有序，另开辟空间求A,B的交集存在C中
+Status ListCross1(LinkList A,LinkList B,LinkList C){
 	LinkList p=A->next,q=B->next;
 	while(p&&q){
 		if(p->data==q->data)
@@ -63,6 +63,28 @@ Status ListCross(LinkList A,LinkList B,LinkList C){
 			q=q->next;
 	}
 }
+
+//A，B递增有序，另开辟空间求A,B的交集存在C中
+Status ListCross(LinkList A,LinkList B,LinkList C){
+	LinkList p=A->next,q=B->next,rear=C,newptr;
+	while(p&&q){
+		if(p->data==q->data)
+			{ newptr=(LinkList)malloc(sizeof(LNode));
+				newptr->data=p->data;
+				newptr->next=NULL;
+				rear->next=newptr;
+				rear=newptr;
+				p=p->next;q=q->next;}
+		else if(p->data<q->data)
+			p=p->next;
+		else
+			q=q->next;
+	}
+}
+
+
+
+
 int main(){
 	srand(time(NULL));
 LinkList a=createLinklist();

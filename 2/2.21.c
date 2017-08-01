@@ -42,7 +42,7 @@ void print(const Sqlist &a){
  printf("\n");
 }
 
-//
+//逆置线性表
 Status ListOppose(Sqlist &va){
   int m=va.length-1;
   int n=m/2;

@@ -57,11 +57,11 @@ Status ListMerge(LinkList A,LinkList B,LinkList C){
     A->next=NULL;
     return OK;
 }
-
+//A,B都为升序的线性表 利用A,B的空间将A,B合并到C中，并使得C表中元素从大到小
 Status ListMergeOppose(LinkList A,LinkList B,LinkList C){
   LinkList p=A->next,q=B->next,tmp;
   while(p&&q){
-    if(p->data<q->data)
+    if(p->data<q->data)//选出A,B中较小的用头插法插入到C表中
     {tmp=p;p=p->next;tmp->next=C->next;C->next=tmp;}
    else
    {tmp=q;q=q->next;tmp->next=C->next;C->next=tmp;}

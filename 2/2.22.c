@@ -65,6 +65,7 @@ void Deletext(LinkList list){
 
 // 带头结点的单链表的逆置
 Status ListOppose(LinkList list){
+	if(!list)return ERROR;
 	LinkList p=list->next;LinkList tmp=NULL;
 	if(!p||(p&&!p->next))return ERROR;
 		LinkList q=p->next;

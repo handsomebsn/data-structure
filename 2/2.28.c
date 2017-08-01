@@ -52,29 +52,34 @@ void InsertEnd(LinkList list,ElemType x){
 
 
 
-Status ListCross1(LinkList A,LinkList B,LinkList C){
+Status ListCross1(LinkList A,LinkList B,LinkList C){//求交集后存在相同元素
 	LinkList pre=A,p=A->next,q=B->next;
 	//C->next=A->next;
 	while(p&&q){
 		if(p->data==q->data)
-			{pre=p;p=p->next;q=q->next;}
+			{pre=p;p=p->next;q=q->next;}//保留A中符合要求的元素
 		else if(p->data<q->data)
-			{pre->next=p->next;free(p); p=pre->next;}
+			{pre->next=p->next;free(p); p=pre->next;}//删除A中不和要求的元素
 		else
 			q=q->next;
 	}
 	C->next=A->next;
 }
-Status ListCross(LinkList A,LinkList B,LinkList C){
+Status ListCross(LinkList A,LinkList B,LinkList C){//求交集后不存在相同元素
 	LinkList pre=A,p=A->next,q=B->next;
 	//C->next=A->next;
-	while(p&&q){
-		if((p->data==q->data&&pre==A)||(p->data==q->data&&pre->data!=p->data))
-			{pre=p;p=p->next;q=q->next;}
-		else if(p->data<q->data)
-			{pre->next=p->next;free(p); p=pre->next;}
-		else
+	while(p&&q){  
+		if(p->data<q->data)
+			{pre->next=p->next;free(p); p=pre->next;}//删除元素
+		else if(p->data>q->data)
 			q=q->next;
+		else{
+			if((pre==A)||(pre->data!=p->data))
+			{pre=p;p=p->next;}//保留元素
+			else
+			{pre->next=p->next;free(p); p=pre->next;}
+			q=q->next;
+		}
 	}
 	pre->next=NULL;
 	while(p){
