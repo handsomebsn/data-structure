@@ -18,7 +18,7 @@ struct LNode *next;
 
 //从顺序表中删除第i个元素起的k个元素
 Status DeleteK(Sqlist &a,int i,int k){
-	if(i<1||k<0||i+k-1>a.length) return INFEASIBLE;
+	if(i<1||i>a.length||k<0||i+k-1>a.length) return INFEASIBLE;
 	for(int j=i-1;j+k<a.length;j++)
 	a.elem[j]=a.elem[j+k];
         a.length-=k;

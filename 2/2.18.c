@@ -35,7 +35,7 @@ Status insert(LinkList &list,int i,ElemType x){
 	return OK;
 }
 //
-Status Delete(LinkList &list,int i){
+Status Delete1(LinkList &list,int i){
 	LinkList tmp=NULL,pre;
 	int k=2;
 if(!list)
@@ -53,6 +53,29 @@ if(!list)
          free(tmp);
 	}
 }
+
+
+Status Delete(LinkList &list,int i){
+	LinkList tmp=NULL,pre=NULL,p=list;
+	int k=1;
+if(!list||i<1)
+	return INFEASIBLE;
+	if(i==1){
+		tmp=list;
+		list=list->next;
+		free(tmp);
+	}else{
+		while(k<i&&p){pre=p;p=p->next;k++;}
+         if(!p) return INFEASIBLE;
+        // tmp=p;
+         pre->next=p->next;
+         free(p);
+	}
+}
+
+
+
+
 
 void print(LinkList list){
 

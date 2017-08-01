@@ -54,29 +54,78 @@ void print(LinkList list){
 }
 Status DeleteAndInsertSub(LinkList &la,LinkList &lb,int i,int j,int len)
 {   int k=1;
+	LinkList pre=NULL;LinkList p=la;
+	while(k<i&&p){pre=p;p=p->next;k++;}//找第i个结点
+	if(!p){return INFEASIBLE;}//第i个结点不存在
+	LinkList q=p;k=1;
+	while(k<len&&q){q=q->next;k++;}
+	if(!q){return INFEASIBLE;}
+	 //删除la中满足条件的结点
+     if(pre!=NULL)
+	  pre->next=q->next;
+	  else//从第一个结点开始删除
+		la=q->next;
+	//删除la中满足条件的结点结束
+
+    LinkList sre=lb;
+    if(j==1){
+    	q->next=la;
+    	la=p;
+    }else{
+    	k=1;
+    	while(k<j-1&&sre){sre=sre->next;k++;}//找第j-1个结点
+    	if(!sre)return INFEASIBLE;//这样的结点不存在
+    	q->next=sre->next;
+    	sre->next=p;
+    }
+
+
+
+}
+
+
+
+
+
+Status DeleteAndInsertSub1(LinkList &la,LinkList &lb,int i,int j,int len)
+{   int k=1;
+//建立辅助头结点
 	LinkList ha=(LinkList)malloc(sizeof(LNode));
 	LinkList hb=(LinkList)malloc(sizeof(LNode));
 	ha->next=la;
 	hb->next=lb;
+
 	LinkList pre=ha;LinkList p=ha->next;
-	while(k<i&&p){pre=p;p=p->next;k++;}
-	if(!p){free(ha);free(hb);return INFEASIBLE;}
+	while(k<i&&p){pre=p;p=p->next;k++;}//找第i个结点
+	if(!p){free(ha);free(hb);return INFEASIBLE;}//第i个结点不存在
 	LinkList q=p;k=1;
 	while(k<len&&q){q=q->next;k++;}
 	if(!q){free(ha);free(hb);return INFEASIBLE;}
-	if(pre!=ha)
-	pre->next=q->next;
-	else
-		la=q->next;
+	//if(pre!=ha)
+	//pre->next=q->next;
+	  //else
+		//la=q->next;
      LinkList sre=hb;LinkList s=hb->next;k=1;
-     while(k<j&&sre){sre=s;if(s)s=s->next;k++;}
-     if(!sre)return INFEASIBLE;
+     //while(k<j&&sre){sre=s;if(s)s=s->next;k++;}
+     //if(!sre)return INFEASIBLE;
+     while(k<j&&s){sre=s;s=s->next;k++;}
+     if(k!=j)return INFEASIBLE;//第j个结点的前驱不存在（第j个结点可以为NULL）
+	//删除la中满足条件的结点
+     if(pre!=ha)
+	  pre->next=q->next;
+	  else//从第一个结点开始删除
+		la=q->next;
+	//删除la中满足条件的结点结束
+
      if(sre!=hb)
      {sre->next=p;q->next=s;}
  		else
- 	 {q->next=lb;lb=p;}
+ 	 {q->next=lb;lb=p;}//在第一个结点前插入
      free(ha);free(hb);
 }
+
+
+
 
 
 

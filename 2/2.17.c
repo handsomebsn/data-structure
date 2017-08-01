@@ -15,7 +15,7 @@ typedef struct LNode{
 //无头结点的单链表
 Status insert(LinkList &list,int i,ElemType x){
 	LinkList pre=list,newptrnode;
-	int k=2;
+	int k=1;
 	if(!list&&i>1) return -999;
 	if(i==1){
     	newptrnode=(LinkList)malloc(sizeof(LNode));
@@ -23,10 +23,8 @@ Status insert(LinkList &list,int i,ElemType x){
     	newptrnode->next=list;
     	list=newptrnode;
 	}else{
-		//if(pre) printf("afdfddfsdfs\n");
-		while(k<i&&pre->next){ pre=pre->next;k++;}
-		//printf("%d %d\n",k,pre->next );
-		if(k<i&&!pre->next) return INFEASIBLE;
+		while(k<i-1&&pre){ pre=pre->next;k++;}
+		if(!pre) return INFEASIBLE;
 		newptrnode=(LinkList)malloc(sizeof(LNode));
     	newptrnode->data=x;
 		   newptrnode->next=pre->next;
@@ -61,19 +59,19 @@ LinkList list=NULL;
 //printf("%d\n",list);
 Status stat;
 stat =insert(list,1,3);
-printf("%d\n",stat);
+printf("status %d\n",stat);
 print(list);
 stat =insert(list,1,8);
-printf("%d\n",stat);
+printf("status %d\n",stat);
 print(list);
 stat =insert(list,3,5);
-printf("%d\n",stat);
+printf("status %d\n",stat);
 print(list);
 stat =insert(list,5,5);
-printf("%d\n",stat);
+printf("status %d\n",stat);
 print(list);
 stat =insert(list,4,9);
-printf("%d\n",stat);
+printf("status %d\n",stat);
 print(list);
 	return 0;
 }

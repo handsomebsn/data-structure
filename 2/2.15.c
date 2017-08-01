@@ -127,7 +127,7 @@ void print(LinkList list){
 
 }
 
-void MergeList(LinkList ha,LinkList hb,LinkList &hc){
+void MergeList(LinkList ha,LinkList hb,LinkList hc){
   LinkList pa,pb;
   pa=ha;
   pb=hb;
@@ -137,12 +137,13 @@ void MergeList(LinkList ha,LinkList hb,LinkList &hc){
    pb=pb->next;
   }
   if(!pa->next){
-    hc=ha;
+    
     pa->next=hb->next;
+    hc->next=ha->next;
     
   }else{
-    hc=hb;
     pb->next=ha->next;
+    hc->next=hb->next;
   }
 
 }
@@ -151,7 +152,7 @@ int main(){
   ElemType x;
   LinkList lista=createLinklist();
   LinkList listb=createLinklist();
-  LinkList listc;
+  LinkList listc=createLinklist();
   srand(time(NULL));
   for(int i=0;i<rand()%20;i++)
   {
