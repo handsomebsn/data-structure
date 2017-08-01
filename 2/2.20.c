@@ -4,6 +4,7 @@
 #define LIST_INT_SIZE 100
 #define LISTINCREMENT 10
 #define INFEASIBLE -1//参数不合法
+#define ERROR 0
 #define OK 1
 typedef int ElemType;
 typedef int Status;//函数状态
@@ -49,11 +50,25 @@ void Deletemintomax(LinkList list,ElemType mink,ElemType maxk){
 
 }
 
-void Deletext(LinkList list){
+void Deletext1(LinkList list){
   LinkList pre=list,p=list->next,tmp=NULL;
  while(p){
   if(pre!=list&&pre->data==p->data)
-  {pre->next=p->next;tmp=p;p=p->next;free(tmp);}
+  //{pre->next=p->next;tmp=p;p=p->next;free(tmp);}
+  {pre->next=p->next;free(p);p=pre->next;}
+  else 
+     {pre=p;p=p->next;}
+
+ }
+}
+Status Deletext(LinkList list){
+	if(!list||!list->next)return ERROR;//L不存在或为空表时候，无法删除
+  LinkList pre=list->next,p=pre->next,tmp=NULL;
+ if(!p)return ERROR;//L只有一个元素时候，无需删除
+ while(p){
+  if(pre->data==p->data)
+  //{pre->next=p->next;tmp=p;p=p->next;free(tmp);}
+  {pre->next=p->next;free(p);p=pre->next;}
   else 
      {pre=p;p=p->next;}
 
