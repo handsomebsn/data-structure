@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<ctype.h>
 #define INFEASIBLE -1//参数不合法
 #define OK 1
 #define ERROR 0 
@@ -9,7 +10,7 @@ typedef int Status;//函数状态
 //栈的顺序表实现
 #define STACK_INT_SIZE 100
 #define STACKINCREMENT 50
-typedef int SElemType;
+typedef char SElemType;
 
 typedef struct{
   SElemType *data;//动态数组
@@ -56,20 +57,37 @@ Status DestroyStack(SqStack &S){
 	S.stacksize=0;
 	S.top=0;
 }
-
-int main(){
+///////////////////////////////////////////////////
+Status fun3_16(char chexiang[],char con[]){//con 车厢调度的操作序列
+	int i=0;
+	int j=0;
 	SqStack S;
-	int x;
 	InitStack(S);
-	do{
-		scanf("%d",&x);
-		Push(S,x);
-	}while(x!=0);
-	Pop(S,x);
-    while(!StackEmpty(S)){
-    	Pop(S,x);
-    	printf("%d ",x);
-    }
+	while(chexiang[i]!='\0'){
+		if(chexiang[i]=='H'){
+			Push(S,'H');
+			con[j++]='I';
+		}else if(chexiang[i]=='S'){
+			//Push(S,'S');
+			//Pop(S,kk);
+			con[j++]='I';
+			con[j++]='O';
+
+		}
+		i++;
+	}
+	char tmp;
+	while(!StackEmpty(S)){
+		Pop(S,tmp);
+		con[j++]='O';
+	}
+	con[j]='\0';
+}
+int main(){
+	char chexiang[]="HSHSSSHSHSHSHSHSHSHSHSSSHSHH";
+	char con[1000];
+	fun3_16(chexiang,con);
+	printf("%s\n",con );
 
 	return 0;
 }
