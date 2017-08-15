@@ -11,6 +11,6 @@ int akm(int m,int n){
 int main(int argc, char const *argv[])
 {
 	/* code */
-	printf("%d\n",akm(1,2) );
+	printf("%d\n",akm(2,1) );
 	return 0;
 }
