@@ -16,12 +16,14 @@ typedef struct
 {
 	Ptrnode front;
 	Ptrnode rear;
+	int length;
 }Queue;
 
 Status InitQueue(Queue &q){
 	q.front=q.rear=(Ptrnode)malloc(sizeof(Node));
 	if(!q.front)return OVERFLOW;
 	q.front->next=NULL;
+	q.length=0;
 	return OK;
 }
 Status DestoryQueue(Queue &q){
@@ -39,6 +41,8 @@ Status EnQueue(Queue &q,ElemType x){
 	p->next=q.rear->next;
 	q.rear->next=p;
 	q.rear=p;
+	//
+	q.length++;
 	return OK;
 }
 Status DeQueue(Queue &q,ElemType &x){
@@ -47,6 +51,8 @@ Status DeQueue(Queue &q,ElemType &x){
 	Ptrnode tmp=q.front->next;
 	q.front->next=tmp->next;
 	free(tmp);
+	//
+	q.length--;
 	return OK;
 }
 ElemType DeQueue(Queue &q){
@@ -59,6 +65,12 @@ ElemType DeQueue(Queue &q){
 	free(tmp);
 	return x;
 }
+
+int QueueLength(const Queue &q){
+	return q.length;
+} 
+
+
 int main(){
 
 	Queue q;
