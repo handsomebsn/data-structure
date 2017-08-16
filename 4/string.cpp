@@ -10,7 +10,7 @@ class string{
 		string();
 		string(const char _str[]);
 		string(const string &s);
-		~string(){delete [] str;strnumber--;}
+		~string(){printf("delete %s\n",str );delete [] str;strnumber--;}
 	static const int initsize;
 	static int strnumber;
 	static int number(){return strnumber;}
@@ -24,6 +24,8 @@ class string{
 	////////////////////////////////////
 	operator const char*(){return str;};
 	////
+	string sssss(){string tmp("tmp");return tmp;}
+	void bbbbb(){str[0]='B';str[1]='\0';};
 
 };
 /*string::string():initsize(4){
@@ -53,14 +55,14 @@ string::string(const string &s){
 	len=s.length();
 	str=new char[len+1];
 	strcpy(str,s.str);
-	//printf("fuzhigouzaohanshu\n");
+	printf("fuzhigouzaohanshu\n");
 }
 
 string& string::operator=(const string &s){
 	len=s.length();
 	str=new char[len+1];
 	strcpy(str,s.str);
-	//printf("--============--\n");
+	printf("--============--\n");
 	return *this;
 }
 string string::operator+(const string &s){
@@ -86,11 +88,13 @@ void string::print(){
 
 
 int main(){
-	string a("hello");
-	string b("bbbbb");
+	string a("A");
 	//string c;
-	string c=a+c;
-	c.print();
-	printf("%d\n",string::number() );
+	a.sssss();
+	string b =a.sssss();
+	b.bbbbb();
+	string c("C");
+
+
 	return 0;
 }
