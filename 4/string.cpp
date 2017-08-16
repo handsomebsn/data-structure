@@ -24,7 +24,7 @@ class string{
 	////////////////////////////////////
 	operator const char*(){return str;};
 	////
-	string sssss(){string tmp("tmp");return tmp;}
+	string sssss(){string tmp("tmp");printf("string %p\n",&tmp ); return tmp;}
 	void bbbbb(){str[0]='B';str[1]='\0';};
 
 };
@@ -36,6 +36,7 @@ const int string::initsize=4;
 int string::strnumber=0;
 
 string::string(){
+	//printf("gouzao\n");
 	str=new char[1];
 	if(!str)throw("OVERFLOW");
 	str[0]='\0';
@@ -44,6 +45,7 @@ string::string(){
 	strnumber++;
 }
 string::string(const char _str[]){
+	//printf("gouzao\n");
 	len=strlen(_str);
 	str=new char[len+1];
 	strcpy(str,_str);
@@ -85,15 +87,25 @@ void string::print(){
 	printf("%s\n", str);
 }
 
+int test(){
+	int i=9999;
+	printf("int %p\n", &i);
 
+	return i;
+}
 
 int main(){
 	string a("A");
 	//string c;
 	a.sssss();
 	string b =a.sssss();
+	printf("string %p\n", &b);
 	b.bbbbb();
 	string c("C");
+	int testi=test();
+	printf("int %p\n",&testi);
+
+
 
 
 	return 0;
