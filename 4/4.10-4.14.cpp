@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<malloc.h>
 #include<string.h>
+#include<stdlib.h>
 typedef int Status;
 #define INFEASIBLE -1//参数不合法
 #define OK 1
@@ -51,6 +52,7 @@ StringType Concat(const StringType &s,const StringType &t){
 	return con;
 }
 StringType SubString(StringType s,int start,int len){
+	if(start<1||start>s.len||len<0||start-1+len>s.len)exit(-1);
   StringType tmp;
   tmp.len=len;
   tmp.data=(char*)malloc(sizeof(char)*tmp.len);
