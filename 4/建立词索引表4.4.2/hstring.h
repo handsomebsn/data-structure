@@ -11,6 +11,6 @@ Status StrAssign(HString &T,char *chars);
 int Strlength(const HString &S);
 int StrCompare(const HString &S,const HString &T);
 Status ClearString(HString &S);
-Status Concat(HString &T,HString S1,HString S2);
-HString SubString(const HString &S,int pos,int len);
+Status Concat(HString &T,const HString &S1,const HString &S2);
+Status SubString(HString &sub,const HString &S,int pos,int len);
 #endif
