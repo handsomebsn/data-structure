@@ -33,6 +33,7 @@ Status ClearList(LinkList &L){
 	while(p)
 		FreeNode(p);
 	L.tail=L.head;
+	L.head->next=NULL;
 	L.len=0;
 }
 Status InsFirst(Link h,Link s){
@@ -120,7 +121,14 @@ Postion LocateElem(LinkList L,ElemType e,int (*compare)(ElemType,ElemType)){
 	while(p&&(*compare)(e,p->data)!=0)p=p->next;
 	return p;
 }
-Status ListTraverse(LinkList L,Status (*visit)(ElemType));
+Status ListTraverse(LinkList L,Status (*visit)(ElemType)){
+	Link p=L.head->next;
+	while(p){
+		(*visit)(p->data);
+		p=p->next;
+	}
+	return OK;
+}
 Status ListInsert(LinkList &L,int i,ElemType e){
 	if(i<1||i>L.len+1)return ERROR;
 	Link s;
