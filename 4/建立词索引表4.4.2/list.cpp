@@ -133,6 +133,7 @@ Postion LocateElem(LinkList L,ElemType e,int (*compare)(ElemType,ElemType)){
 Status ListTraverse(LinkList L,Status (*visit)(ElemType)){
 	Link p=L.head->next;
 	while(p){
+		//printf("list ---\n");
 		(*visit)(p->data);
 		p=p->next;
 	}
@@ -147,4 +148,7 @@ Status ListInsert(LinkList &L,int i,ElemType e){
 	if(!InsFirst(h,s))return ERROR;
 	return OK;
 }
-Status MergeList(LinkList &La,LinkList &Lb,LinkList &Lc,int (*compare)(ElemType,ElemType));
+Status MergeList(LinkList &La,LinkList &Lb,LinkList &Lc,int (*compare)(ElemType,ElemType)){
+
+	return OK;
+}

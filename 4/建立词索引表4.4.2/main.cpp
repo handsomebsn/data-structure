@@ -33,6 +33,7 @@ void GetLine(FILE *f);
 void ExtractKeyWord(ElemType &bno);
 int LocateKey(IdxListType idxlist,HString key);
 Status InsIdxList(IdxListType &idxlist,ElemType bno);
+Status visit(ElemType e);
 void PutText(FILE *g,IdxListType idxlist);
 
 void InitWordList(WordListType &wdlist){
@@ -79,12 +80,13 @@ void ExtractKeyWord(ElemType &bno){
 	++i;
 	///////////////
 	int j=0;
-	while(buf[i]){
-		for(j=0;buf[i]&&buf[i]!=' ';++i,++j)
+	while(buf[i]!='\n'){//gai zhu yi
+		for(j=0;buf[i]!='\n'&&buf[i]!=' ';++i,++j)
 			str[j]=buf[i];
 		str[j]='\0';
 		if(buf[i]==' ')
 		++i;
+	//printf("%s\n",str );
 	InsWordList(wdlist,str);
 	}
 	free(buf);
@@ -93,7 +95,7 @@ int LocateKey(IdxListType idxlist,HString key){//up up sort er fen cha zhao
 	int i=1,j=idxlist.last;
 	int f;
 	while(i<=j){
-		f=(i+j)>>1;
+		f=(i+j)/2;
 		if(StrCompare(key,idxlist.item[f].key)==0)
 			break;
 		else if(StrCompare(key,idxlist.item[f].key)<0)
@@ -113,25 +115,40 @@ Status InsIdxList(IdxListType &idxlist,ElemType bno){
 	for(int i=0;i<wdlist.last;++i)
 	{
 		key=GetWord(wdlist,i);
+		//ShowString(key);
+		//printf("\n");
 		j=LocateKey(idxlist,key);
 		if(j){
 			Appand(idxlist.item[j].bnolist,bno);
+			//printf("you\n");
 		}else{
 			int m=idxlist.last+1;
 			for(;m>1&&StrCompare(idxlist.item[m-1].key,key)>0;--m)
 				idxlist.item[m]=idxlist.item[m-1];
+			//ShowString(key);
+			//printf("%d\n",m );
 			idxlist.item[m].key=key;
 			++idxlist.last;
+			//
+			InitList(idxlist.item[m].bnolist);
+			Appand(idxlist.item[m].bnolist,bno);
 		}
 	}
 	ClearWordList(wdlist);
 	return OK;
 }
+Status visit(ElemType e){
+	printf("%d ", e);
+}
 void PutText(FILE *g,IdxListType idxlist){
+	//ShowString(idxlist.item[1].key);
 
 	for(int i=1;i<idxlist.last;++i)
 	{
 		ShowString(idxlist.item[i].key);
+		printf(" ");
+		ListTraverse(idxlist.item[i].bnolist,visit);
+		printf("\n");
 	}
 
 }
@@ -145,6 +162,7 @@ int main()
 
 	while(!feof(f)){
 		GetLine(f);
+		//printf("%s", buf);
 		ExtractKeyWord(bno);
 		InsIdxList(idxlist,bno);
 	}
