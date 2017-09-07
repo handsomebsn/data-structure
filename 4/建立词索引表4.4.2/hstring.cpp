@@ -1,5 +1,5 @@
 #include "hstring.h"
-Status StrAssign(HString &T,char *chars){
+Status StrAssign(HString &T,const char *chars){
 	if(T.ch)free(T.ch);
 	int len=0;
 	for(;*chars;++len,++chars) ;
@@ -62,4 +62,8 @@ Status SubString(HString &sub,const HString &S,int pos,int len){
 	for(int i=0;i<len;++i,++si)
 		sub.ch[i]=S.ch[si];
 	return OK;
+}
+void ShowString(const HString &S){
+	for(int i=0;i<S.length;++i)
+		printf("%c", S.ch[i]);
 }
