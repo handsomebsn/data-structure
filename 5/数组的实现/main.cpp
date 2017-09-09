@@ -1,11 +1,15 @@
 #include<stdio.h>
+#include "array.h"
 int main(int argc, char const *argv[])
 {
 	/* code */
-	int a=9;
-	int *p=&a;
-	printf("%p\n",p );
-	p=p+2;
-	printf("%p\n",p );
+	Array a;
+	InitArray(a,2,5,5);
+	Assign(a,998,1,1);
+	int e;
+	Value(a,e,1,1);
+	printf("%d\n",e);
+
+
 	return 0;
 }
