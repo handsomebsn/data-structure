@@ -11,6 +11,24 @@ template<typename T>
 class TSmatrix
 {
 public:
+	TSmatrix(){
+		m=0;
+		n=0;
+		tu=0;
+		base=NULL;
+		last=0;
+	}
+	TSmatrix(const TSmatrix &mat){
+
+		m=mat.m;
+		n=mat.n;
+		tu=mat.tu;
+		last=mat.last;
+		base=new Triple<T>[tu];
+		for(int p=0;p<tu;++p)
+			base[p]=mat.base[p];
+	}
+
 	TSmatrix(int _m,int _n,int _tu){
 		if(_tu>_m*_n)throw "111";
 		m=_m;
@@ -20,6 +38,7 @@ public:
 		last=0;
 	}
 	~TSmatrix(){
+		if(base)
 		delete[] base;
 		base=NULL;
 	}
@@ -28,10 +47,15 @@ public:
 			std::cout<<base[p].e<<" "<<base[p].i<<" "<<base[p].j<<std::endl;
 	}
 	Status assign(T e,int row,int col);
+	Status sumassign(T e,int row,int col);
+private:
 	int m,n;
 	int tu;
 	Triple<T> *base;
 	int last;
+public:
+	TSmatrix<T>& operator=(const TSmatrix<T> &mat);
+	TSmatrix<T> operator+(const TSmatrix<T> &mat);
 private:
 	Status locate(int row,int col,int &p);
 };
@@ -48,7 +72,24 @@ Status TSmatrix<T>::assign(T e,int row,int col){
 		base[p].j=col;
 		++last;
 	}
+	return 1;
 }
+template<typename T>
+Status TSmatrix<T>::sumassign(T e,int row,int col){
+	int p;
+	if(locate(row,col,p)){
+		base[p].e+=e;
+	}else{
+		for(p=last;p>0&&base[p-1].i>row;--p)
+			base[p]=base[p-1];
+		base[p].e=e;
+		base[p].i=row;
+		base[p].j=col;
+		++last;
+	}
+	return 1;
+}
+
 template<typename T>
 Status TSmatrix<T>::locate(int row,int col,int &p){
 	int i=0;
@@ -68,6 +109,29 @@ Status TSmatrix<T>::locate(int row,int col,int &p){
 		return 0;
 }
 
+template<typename T>
+TSmatrix<T>& TSmatrix<T>::operator=(const TSmatrix<T> &mat){
+	m=mat.m;
+	n=mat.n;
+	tu=mat.tu;
+	last=mat.last;
+	base=new Triple<T>[tu];
+	for(int p=0;p<tu;++p)
+		base[p]=mat.base[p];
+	return *this;
+}
+template<typename T>
+TSmatrix<T> TSmatrix<T>::operator+(const TSmatrix<T> &mat){
+	if(m!=mat.m||n!=mat.n)throw "ERROR IS M1!=M2 N1!=N2";
+	TSmatrix<T> tmp(m,n,tu+mat.tu);
+	for(int p=0;p<tu;++p)
+		tmp.sumassign(base[p].e,base[p].i,base[p].j);
+	for(int p=0;p<mat.tu;++p)
+		tmp.sumassign(mat.base[p].e,mat.base[p].i,mat.base[p].j);
+	tmp.tu=tmp.last;
+	return tmp;
+}
+
 #endif
 
 
@@ -82,5 +146,13 @@ int main(int argc, char const *argv[])
 	//
 	t.assign(18,3,10);
 	t.print();
+	std::cout<<std::endl;
+	TSmatrix<int> t1;
+	t1=t;
+	t1.print();
+	std::cout<<std::endl;
+	TSmatrix<int> tsum;
+	tsum=t+t1;
+	tsum.print();
 	return 0;
 }
