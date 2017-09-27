@@ -11,10 +11,35 @@ typedef struct Node
 		struct{struct Node *hp,*tp; }ptr;
 	};
 	
-}*GList;
+}*GList,Node,*ptrNode;
 void sever(string &sub,string &hsub);
 Status CreateGList(GList &L,string S);
+Status CreateGList(GList &L,string S){
+	if(S=="( )")L=NULL;
+	else{
+		L=new Node;
+		if(S.size()==1)
+			{L->tag=_ATOM;L->e=S[0];}
+		else{
+			L->tag=_LISTS;ptrNode p=L,q;
+			S=string(&S[0],&S[S.size()-1]);
+			string hsub;
+			do{	
+				sever(S,hsub);
+				CreateGList(p->ptr.hp,hsub);q=p;
+				if(S!=string()){
+					p=new Node;
+					p->tag=_LISTS;
+					q->ptr.tp=p;
+				}
 
+			}while(S!=string());
+			q->ptr.hp=NULL;
+		}
+	}
+	return OK;
+
+}
 
 
 
@@ -48,6 +73,7 @@ int main(int argc, char const *argv[])
 		sever(sub,hsub);
 		std::cout<<hsub<<std::endl;
 	}
-
+	GList glist;
+	CreateGList(glist,"(a,b,c,(d,e,f),g,h)");
 	return 0;
 }
